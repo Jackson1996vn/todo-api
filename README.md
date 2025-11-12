@@ -43,11 +43,49 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Todo Object Structure
+
+```json
+{
+  "id": 1,
+  "title": "Learn NestJS",
+  "description": "Study NestJS framework and build APIs",
+  "completed": false,
+  "participants": ["Alice", "Bob"],
+  "createdAt": "2025-11-10T00:00:00.000Z",
+  "updatedAt": "2025-11-10T00:00:00.000Z"
+}
+```
+
+### Fields
+- `id` (number): Unique identifier
+- `title` (string): Todo title (required)
+- `description` (string, optional): Detailed description
+- `completed` (boolean): Completion status
+- `participants` (string[]): Array of people working on this todo
+- `createdAt` (Date): Creation timestamp
+- `updatedAt` (Date): Last update timestamp
+
 ## API Usage Examples
 
 ### Get all todos
 ```bash
 GET http://localhost:3000/todos
+```
+
+Response:
+```json
+[
+  {
+    "id": 1,
+    "title": "Learn NestJS",
+    "description": "Study NestJS framework and build APIs",
+    "completed": false,
+    "participants": ["Alice", "Bob"],
+    "createdAt": "2025-11-10T00:00:00.000Z",
+    "updatedAt": "2025-11-10T00:00:00.000Z"
+  }
+]
 ```
 
 ### Get a specific todo
@@ -63,7 +101,8 @@ Content-Type: application/json
 {
   "title": "New Task",
   "description": "Task description",
-  "completed": false
+  "completed": false,
+  "participants": ["John", "Jane"]
 }
 ```
 
@@ -73,7 +112,8 @@ PUT http://localhost:3000/todos/1
 Content-Type: application/json
 
 {
-  "completed": true
+  "completed": true,
+  "participants": ["John", "Jane", "Alice"]
 }
 ```
 

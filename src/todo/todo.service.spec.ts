@@ -43,12 +43,25 @@ describe('TodoService', () => {
         title: 'Test Todo',
         description: 'Test Description',
         completed: false,
+        participants: ['Alice', 'Bob'],
       };
       const todo = service.create(createDto);
       expect(todo).toBeDefined();
       expect(todo.title).toBe(createDto.title);
       expect(todo.description).toBe(createDto.description);
       expect(todo.completed).toBe(createDto.completed);
+      expect(todo.participants).toEqual(createDto.participants);
+    });
+
+    it('should create a new todo with empty participants if not provided', () => {
+      const createDto = {
+        title: 'Test Todo',
+        description: 'Test Description',
+        completed: false,
+      };
+      const todo = service.create(createDto);
+      expect(todo).toBeDefined();
+      expect(todo.participants).toEqual([]);
     });
   });
 
@@ -61,6 +74,14 @@ describe('TodoService', () => {
       const todo = service.update(1, updateDto);
       expect(todo.title).toBe(updateDto.title);
       expect(todo.completed).toBe(updateDto.completed);
+    });
+
+    it('should update participants', () => {
+      const updateDto = {
+        participants: ['Alice', 'Bob', 'Charlie'],
+      };
+      const todo = service.update(1, updateDto);
+      expect(todo.participants).toEqual(updateDto.participants);
     });
 
     it('should throw NotFoundException for non-existent todo', () => {

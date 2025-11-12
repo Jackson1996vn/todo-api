@@ -11,6 +11,7 @@ export class TodoService {
       title: 'Learn NestJS',
       description: 'Study NestJS framework and build APIs',
       completed: false,
+      participants: ['Alice', 'Bob'],
       createdAt: new Date('2025-11-10'),
       updatedAt: new Date('2025-11-10'),
     },
@@ -19,6 +20,7 @@ export class TodoService {
       title: 'Build Todo API',
       description: 'Create a mock Todo API with CRUD operations',
       completed: true,
+      participants: ['Alice', 'Charlie', 'David'],
       createdAt: new Date('2025-11-11'),
       updatedAt: new Date('2025-11-12'),
     },
@@ -27,6 +29,7 @@ export class TodoService {
       title: 'Deploy Application',
       description: 'Deploy the application to production',
       completed: false,
+      participants: ['Bob', 'Eve'],
       createdAt: new Date('2025-11-12'),
       updatedAt: new Date('2025-11-12'),
     },
@@ -51,6 +54,7 @@ export class TodoService {
       title: createTodoDto.title,
       description: createTodoDto.description || '',
       completed: createTodoDto.completed || false,
+      participants: createTodoDto.participants || [],
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -69,6 +73,9 @@ export class TodoService {
     }
     if (updateTodoDto.completed !== undefined) {
       todo.completed = updateTodoDto.completed;
+    }
+    if (updateTodoDto.participants !== undefined) {
+      todo.participants = updateTodoDto.participants;
     }
     
     todo.updatedAt = new Date();

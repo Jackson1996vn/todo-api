@@ -42,10 +42,12 @@ describe('TodoController', () => {
         title: 'Test Todo',
         description: 'Test Description',
         completed: false,
+        participants: ['Alice', 'Bob'],
       };
       const result = controller.create(createDto);
       expect(result).toBeDefined();
       expect(result.title).toBe(createDto.title);
+      expect(result.participants).toEqual(createDto.participants);
     });
   });
 

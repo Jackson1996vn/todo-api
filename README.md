@@ -1,6 +1,6 @@
 # Todo API
 
-A RESTful Todo API built with NestJS framework, featuring full CRUD operations and mock data storage.
+A RESTful Todo API built with NestJS framework, featuring full CRUD operations, mock data storage, and automated CI/CD pipeline.
 
 ## Features
 
@@ -10,6 +10,9 @@ A RESTful Todo API built with NestJS framework, featuring full CRUD operations a
 - ✅ Error handling with proper HTTP status codes
 - ✅ TypeScript support
 - ✅ DTOs for data validation
+- ✅ GitHub Actions CI/CD pipeline
+- ✅ Automated testing and deployment
+- ✅ Ready for free cloud deployment (Render, Railway, Fly.io)
 
 ## API Endpoints
 
@@ -97,6 +100,44 @@ $ npm run test:cov
 - [NestJS](https://nestjs.com/) - Progressive Node.js framework
 - [TypeScript](https://www.typescriptlang.org/) - Typed superset of JavaScript
 - [Express](https://expressjs.com/) - Web framework for Node.js
+- [Jest](https://jestjs.io/) - Testing framework
+- [GitHub Actions](https://github.com/features/actions) - CI/CD automation
+
+## 🚀 CI/CD Pipeline
+
+This project includes an automated CI/CD pipeline using GitHub Actions:
+
+### Workflow Triggers
+- ✅ Automatically runs on every push to `main` branch
+
+### Build & Test Job
+1. Checks out code from repository
+2. Sets up Node.js environment (v20)
+3. Installs dependencies with `npm ci`
+4. Runs unit tests with `npm test`
+5. Builds the application
+
+### Deploy Job
+- Automatically deploys to Render after successful tests
+- Requires Render API credentials in GitHub Secrets
+
+For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md)
+
+## 📦 Quick Deploy
+
+### Deploy to Render (Free)
+1. Fork/clone this repository
+2. Sign up at [render.com](https://render.com)
+3. Create a new Web Service from your GitHub repo
+4. Render will auto-deploy using `render.yaml`
+
+### Deploy to Railway (Free)
+1. Sign up at [railway.app](https://railway.app)
+2. New Project → Deploy from GitHub
+3. Select this repository
+4. Railway will auto-detect and deploy
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for more options and detailed setup instructions.
 
 ## License
 

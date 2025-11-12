@@ -1,0 +1,60 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run unit tests
+        run: npm test
+      
+      - name: Run build
+        run: npm run build
+
+  deploy:
+    name: Deploy to Render
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: success()
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Deploy to Render
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+        run: |
+          if [ -n "$RENDER_API_KEY" ] && [ -n "$RENDER_SERVICE_ID" ]; then
+            echo "Triggering Render deployment..."
+            curl -X POST "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys" \
+              -H "Authorization: Bearer $RENDER_API_KEY" \
+              -H "Content-Type: application/json"
+            echo "Deployment triggered successfully!"
+          else
+            echo "⚠️  Render credentials not configured. Skipping deployment."
+            echo "To enable deployment:"
+            echo "1. Create a Render account at https://render.com"
+            echo "2. Create a new Web Service"
+            echo "3. Add RENDER_API_KEY and RENDER_SERVICE_ID to GitHub Secrets"
+          fi
+
